@@ -1,14 +1,12 @@
-from typing import Optional
-
+from datetime import datetime
 from fastapi import FastAPI
 from pydantic import BaseModel
 
 
 class Item(BaseModel):
-    name: str
-    description: Optional[str] = None
-    price: float
-    tax: Optional[float] = None
+    payer: str
+    points: int
+    date: datetime
 
 items = {}
 
@@ -17,6 +15,7 @@ app = FastAPI()
 @app.get("/")
 def root ():
     global items
+    print(items.date.strftime('%Y-%m-%dT%H:%M:%SZ'))
     return items
 
 @app.post("/items/")
